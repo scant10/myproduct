@@ -10,19 +10,19 @@ import org.springframework.stereotype.Service;
 public class KafkaListener {
 
     @Autowired
-    private ProductRepository productRepository;
+    ProductRepository productRepository;
 
     @StreamListener(Processor.INPUT)
     public void onEventByString(@Payload OrderPlaced orderPlaced){
-        if(orderPlaced.getEventType().equals(("OrderPlaced"))) {
-            System.out.println("---------------------------");
+        if( orderPlaced.getEventType().equals("OrderPlaced")){
+            System.out.println("======================");
             System.out.println("재고량 수정");
-            Product product = new Product();
-            product.setName(orderPlaced.getProductName());
-
-            final Product saveProduct = productRepository.save(product);
-
-            System.out.println("---------------------------");
+            Product p = new Product();
+            p.setName(orderPlaced.getProductName());
+            p.setStock(orderPlaced.getQty());
+            productRepository.save(p);
+            System.out.println("======================");
         }
+
     }
 }

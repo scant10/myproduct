@@ -40,7 +40,7 @@ public class Product{
         } catch (JsonProcessingException e) {
             throw new RuntimeException("JSON format exception", e);
         }
-        // System.out.println(json);
+        System.out.println(json);
         Processor processor = DemoApplication.applicationContext.getBean(Processor.class);
         MessageChannel outputChannel = processor.output();
 
